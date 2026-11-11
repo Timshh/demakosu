@@ -19,4 +19,5 @@ class Gamemode {
   std::vector<Circle> circles;
   int score;
   float timer;
+  bool is_pressing;
 };

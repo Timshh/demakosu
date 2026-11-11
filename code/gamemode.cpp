@@ -15,18 +15,33 @@ Gamemode::Gamemode(sf::RenderWindow* window, ResourceManager* manager)
 }
 
 bool Gamemode::update(float delta_time) {
+
+  bool did_miss = false;
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+    if (!is_pressing) {
+      is_pressing = true;
+      did_miss = true;
+    }
+  } else {
+    is_pressing = false;
+  }
+  for (Circle& circle : circles) {
+    if (circle.update(delta_time)) {
+      did_miss = false;
+      score += 1;
+      score_text.setString("Score: " + std::to_string(score));
+    }
+  }
+  if (did_miss) {
+    timer -= 1;
+  }
+
   timer -= delta_time;
   time_text.setString("Time: " + std::to_string(int(timer)));
   if (timer <= 0) {
     return true;
   }
 
-  for (Circle& circle : circles) {
-    if (circle.update(delta_time)) {
-      score += 1;
-      score_text.setString("Score: " + std::to_string(score));
-    }
-  }
   window->draw(score_text);
   window->draw(time_text);
   return false;

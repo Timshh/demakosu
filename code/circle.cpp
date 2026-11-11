@@ -1,7 +1,7 @@
 ﻿#include "circle.h"
 
 Circle::Circle(sf::RenderWindow* window, sf::Texture* texture)
-    : Object(window, texture), isPressing(false) {
+    : Object(window, texture), is_pressing(false) {
   body.setPosition(sf::Vector2f(20 + rand() % 560, 20 + rand() % 460));
   direction = sf::Vector2f(100 - rand() % 200, 100 - rand() % 200);
 }
@@ -20,8 +20,8 @@ bool Circle::update(float delta_time) {
   Object::update(delta_time);
 
   if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-    if (!isPressing) {
-      isPressing = true;
+    if (!is_pressing) {
+      is_pressing = true;
       if (body.getGlobalBounds().contains(
               sf::Vector2f(sf::Mouse::getPosition(*window)))) {
         body.setPosition(sf::Vector2f(20 + rand() % 560, 20 + rand() % 460));
@@ -30,7 +30,7 @@ bool Circle::update(float delta_time) {
       }
     }
   } else {
-    isPressing = false;
+    is_pressing = false;
   }
   return false;
 }

@@ -9,5 +9,5 @@ class Circle : public Object {
 
  private:
   sf::Vector2f direction;
-  bool isPressing;
+  bool is_pressing;
 };
